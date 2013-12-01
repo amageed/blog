@@ -1,7 +1,6 @@
 ---
 date: 2011-11-27 18:28:23+00:00
 layout: post
-url: /posts/enumerating-weakly-typed-collections-with-implicitly-typed-variables
 title: Enumerating weakly typed collections with implicitly typed variables
 tags: ['post','.net','c#','linq']
 ---

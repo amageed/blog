@@ -1,7 +1,6 @@
 ---
 date: 2012-08-02 11:50:16+00:00
 layout: post
-url: /posts/null-coalescing-operator-precedence
 title: The C# null coalescing operator and when 2 + 3 = 2
 tags: ['post','.net','c#']
 ---

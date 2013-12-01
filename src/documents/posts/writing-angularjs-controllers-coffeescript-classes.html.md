@@ -1,7 +1,6 @@
 ---
 date: 2013-09-08 06:23:27+00:00
 layout: post
-url: /posts/writing-angularjs-controllers-coffeescript-classes
 title: Writing AngularJS controllers with CoffeeScript classes
 tags: ['post','angular','coffeescript','javascript']
 ---

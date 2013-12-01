@@ -1,7 +1,6 @@
 ---
 date: 2012-01-11 17:47:36+00:00
 layout: post
-url: /posts/productivity-tip-delimiting-multiple-lines-with-your-ide
 title: 'Productivity tip: delimiting multiple lines with your IDE'
 tags: ['post','productivity','regex']
 ---

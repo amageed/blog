@@ -1,7 +1,6 @@
 ---
 date: 2012-02-25 21:57:57+00:00
 layout: post
-url: /posts/designating-different-audio-devices-for-playback-and-communication-on-windows-7
 title: Designating different audio devices for playback and communication on Windows 7
 tags: ['post','windows7']
 ---

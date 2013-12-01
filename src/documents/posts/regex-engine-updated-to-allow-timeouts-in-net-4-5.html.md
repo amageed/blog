@@ -1,7 +1,6 @@
 ---
 date: 2011-09-21 05:44:03+00:00
 layout: post
-url: /posts/regex-engine-updated-to-allow-timeouts-in-net-4-5
 title: Regex engine updated to allow timeouts in .NET 4.5
 tags: ['post','.net','regex']
 ---

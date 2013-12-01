@@ -1,7 +1,6 @@
 ---
 date: 2012-03-05 14:35:10+00:00
 layout: post
-url: /posts/returning-classes-that-inherit-listt-using-a-generic-method
 title: Returning classes that inherit List<T> using a generic method
 tags: ['post','.net','c#']
 ---

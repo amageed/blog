@@ -1,7 +1,6 @@
 ---
 date: 2013-06-24 04:55:52+00:00
 layout: post
-url: /posts/sharpkit-evaluation
 title: Evaluating SharpKit - a C# to JavaScript converter
 tags: ['post','.net','web']
 ---
