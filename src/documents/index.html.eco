@@ -3,10 +3,26 @@ layout: 'default'
 title: 'Home'
 ---
 
-<h2>Recent Posts</h2>
-<hr />
+<% numberOfPostsToShow = 3 %>
+
+<% for document, index in @getCollection('posts').toJSON(): %>
+    <% break if index > numberOfPostsToShow %>
+
+    <article class="post">
+        <h1><a href="<%= document.url %>"><%= document.title %></a></h1>
+        <div class="post-date"><%= document.date.toLocaleDateString() %></div>
+        <div class="post-content">
+            <%- document.contentRenderedWithoutLayouts %>
+        </div>
+    </article>
+    <hr />
+<% end %>
+
+
+<h2>Previous Posts</h2>
 <nav class="linklist">
-	<% for document in @getCollection('posts').toJSON(): %>
+	<% for document, index in @getCollection('posts').toJSON(): %>
+        <% continue if index <= numberOfPostsToShow %>
 		<li><span><%= document.date.toDateString() %></span>
 		&raquo;
 		<a href="<%= document.url %>"><%= document.title %></a></li>
