@@ -1,0 +1,364 @@
+```
+title: Regextra Project
+layout: page
+tags: ['intro','page']
+pageOrder: 2
+```
+
+<!DOCTYPE html>
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Regextra PassphraseRegex - strong passphrase validation</title>
+    <link rel="stylesheet" href="/styles/foundation.css">
+    <link rel="stylesheet" href="/styles/syntaxhighlighter/shCore.css">
+    <link rel="stylesheet" href="/styles/syntaxhighlighter/shThemeMidnight.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="/scripts/foundation/modernizr-foundation.js"></script>
+    <script src="/scripts/syntaxhighlighter/shCore.js"></script>
+    <script src="/scripts/syntaxhighlighter/shBrushCSharp.js"></script>
+    <style type="text/css">
+        .valid input, input.valid, .valid input:focus, input.valid:focus {
+            border-color: #00940a;
+            background-color: rgba(65, 242, 77, 0.1);
+        }
+        dl[data-magellan-expedition] {
+            z-index: 1;
+            background: none repeat scroll 0 0 white;
+            padding-top: 10px;
+            width: 100%;
+        }
+        code {
+            white-space: nowrap;
+            background-color: #f8f8f8;
+            border: 1px solid #eaeaea;
+            border-radius: 3px 3px 3px 3px;
+            margin: 0 2px;
+            padding: 0 5px;
+        }
+        pre, code {
+            font-family: Consolas,"Liberation Mono",Courier,monospace;
+            font-size: 0.9em;
+        }
+        .syntaxhighlighter {
+            border-radius: 5px 5px 5px 5px;
+            font-size: 0.9em !important;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <a href="https://github.com/amageed/regextra"><img style="position: absolute; top: 80px; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+
+    <div class="row">
+        <div class="twelve columns">
+            <dl data-magellan-expedition="fixed" class="sub-nav">
+                <dd data-magellan-arrival="about" class="active"><a href="#about">About</a></dd>
+                <dd data-magellan-arrival="classDetails"><a href="#classDetails">Class Details</a></dd>
+                <dd data-magellan-arrival="tryIt"><a href="#tryIt">Try It!</a></dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="twelve columns">
+            <a data-magellan-destination="about" name="about"></a>
+            <h5>About</h5>
+            <p><strong><em>Regextra</em></strong> is an <a href="https://github.com/amageed/regextra">open source C# library</a> that provides a <code>PassphraseRegex</code> class to aid in strong passphrase validation. Using a fluent API, a variety of common rules can be applied to produce a pattern that can be used to validate input. The regex produced is generic enough that it can be used on the back-end, or on the front-end via JavaScript (which this page demonstrates!).</p>
+            <p>A common question I've seen on StackOverflow is how to write code that enforces strong passphrase or password rules. Popular responses tend to tackle the problem by using a regex with look-aheads. I've seen this so much that I decided to have fun writing a solution that allowed people to produce regex patterns that would enforce such rules.</p>
+
+            <h5>Coming Soon!</h5>
+            <p>In the near future I intend to update this page to allow visitors to specify their rules and generate a regex pattern without necessarily adding the library to their own projects.</p>
+
+            <h5>JavaScript Compatibility</h5>
+            <p>The patterns produced make use of look-aheads, which are supported since JavaScript 1.5, and thus is compatible with modern browsers. That said, people using this library to validate input could make use of an Ajax callback that generates the pattern, but that's probably not ideal. Realistically, once the pattern is determined, you could have it passed down when the page is generated, or add it to your JavaScript file (either manually or via some build step).</p>
+
+            <h5>Example usage</h5>
+            <p>The following code generates a pattern to enforce a password of 8-25 characters that requires at least two lowercase letters in the range of <code>a-z</code> and numbers excluding those in the range of <code>0-4</code> (i.e., numbers in the <code>5-9</code> range are acceptable).</p>
+            <pre class="brush: csharp; gutter: false; toolbar: false;">
+                var builder = PassphraseRegex.With.MinLength(8)
+                                                  .MaxLength(25)
+                                                  .IncludesRange('a', 'z')
+                                                  .WithMinimumOccurrenceOf(2)
+                                                  .ExcludesRange('0', '4');
+                var result = builder.ToPattern();
+                if (result.IsValid)
+                {
+                    if (Regex.IsMatch(input, result.Pattern))
+                    {
+                        // passphrase meets requirements
+                    }
+                    else
+                    {
+                        // passphrase is no good
+                    }
+                }
+                else
+                {
+                    // check the regex parse exception message for the generated pattern
+                    Console.WriteLine(result.Error);
+                }
+            </pre>
+            <hr />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="twelve columns">
+            <a data-magellan-destination="classDetails" name="classDetails"></a>
+            <h4>Class Details</h4>
+            <p>By default all generated patterns reject leading and trailing whitespace.</p>
+            <h5>Initialization</h5>
+            <p>Initialization is achieved via either of the following 3 properties so that you're free to construct the builder with code that flows nicely with the first method you decided to use:</p>
+            <ul>
+                <li><code>That</code>: e.g. <em>PassphraseRegex.That.IncludesRange(...)</em>
+                </li>
+                <li><code>Which</code>: e.g. <em>PassphraseRegex.Which.ExcludesCharacters(...)</em>
+                </li>
+                <li><code>With</code>: e.g. <em>PassphraseRegex.With.MinLength(...)</em>
+                </li>
+            </ul>
+
+            <h5>Methods</h5>
+            <ul>
+                <li><code>MinLength(int length)</code>: specify the minimum input length (must be >= number of rules used)</li>
+                <li><code>MaxLength(int length)</code>: specify the maximum input length (must be >= number of rules used)</li>
+                <li><code>IncludesAnyCharacters(string characters)</code>: require any (i.e., at least one) of the characters in the string to exist for the input to be valid</li>
+                <li><code>ExcludesCharacters(string characters)</code>: disallow any of the characters in the string for the input to be valid</li>
+                <li><code>IncludesRange(char start, char end)</code>: require any of the characters in the given range, e.g., <code>a-z</code></li>
+                <li><code>ExcludesRange(char start, char end)</code>: disallow any of the characters in the given range, e.g., <code>0-9</code></li>
+                <li><code>MaxConsecutiveIdenticalCharacterOf(int length)</code>: prevents <em>n</em> identical characters, e.g., a max of 2 would make "aaabc" an invalid match</li>
+                <li><code>WithMinimumOccurrenceOf(int length)</code>: this method is available for positive rules only (i.e., <code>IncludesAnyCharacters</code> and <code>IncludesRange</code>) and specifies the minimum number of characters needed for the input to match</li>
+                <li><code>ToPattern()</code>: generates the regex pattern based on the specified rules and returns a <code>PatternResult</code> class</li>
+            </ul>
+
+            <h5>Possible Exceptions Thrown</h5>
+            <p>Certain methods will throw an exception when given invalid inputs.</p>
+            <ul>
+                <li><code>IncludesAnyCharacters</code>: throws <code>ArgumentException</code> when input is null or empty</li>
+                <li><code>ExcludesCharacters</code>: same behavior as <code>IncludesAnyCharacters</code></li>
+                <li><code>WithMinimumOccurrenceOf</code>: throws <code>ArgumentOutOfRangeException</code> when the length is less than 1</li>
+                <li><code>MaxConsecutiveIdenticalCharacterOf</code>: throws <code>ArgumentOutOfRangeException</code> when the length is less than 2</li>
+                <li><code>ToPattern</code>: throws <code>ArgumentException</code> if either of the specified min/max lengths are less than the number of rules specified</li>
+            </ul>
+
+            <h5>PatternResult Class Properties</h5>
+            <p>Once you've specified the <code>PatternRegex</code> rules and call <code>ToPattern()</code>, a <code>PatternResult</code> will be returned with the following properties:</p>
+            <ul>
+                <li><code>IsValid</code>: indicates whether the pattern was successfully generated or not</li>
+                <li><code>Error</code>: if the pattern was invalid, this contains the Regex class' exception message</li>
+                <li><code>Pattern</code>: the generated pattern to use with the <code>Regex</code> class</li>
+            </ul>
+            <hr />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="twelve columns">
+            <a data-magellan-destination="tryIt" name="tryIt"></a>
+            <h4>Try It!</h4>
+            <p>Below are some validation goals, followed by the code used to produce the pattern. You can also test the pattern out with your own input and the textbox's color will change based on the validity. <strong>All patterns reject leading and trailing whitespace.</strong></p>
+            <div class="row">
+                <div class="seven columns">
+                    <div class="row">
+                        <p><strong>Goal:</strong> accept input that contains any of the specified characters (<em>a, b, c, 1, 2, 3</em>).</p>
+                        <pre class="brush: csharp; gutter: false; toolbar: false;">
+                            var result = PassphraseRegex.That.IncludesAnyCharacters("abc123")
+                                                             .ToPattern();
+
+                            var pattern = result.Pattern;
+                        </pre>
+                        <p><strong>Pattern:</strong> <code>^(?=.*[abc123])(?!^\s|.*\s$).+$</code></p>
+                    </div>
+                </div>
+                <div class="five columns">
+                    <div class="panel">
+                        <div class="row">
+                          <div class="twelve columns">
+                            <ul>
+                              <li><strong>Valid:</strong> <em>a</em>, <em>1</em>, <em>f3</em></li>
+                              <li><strong>Invalid:</strong> <em>x</em>, <em>z6</em>, <em>9</em></li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="row" data-example-container data-pattern="^(?=.*[abc123])(?!^\s|.*\s$).+$">
+                            <form>
+                                <div class="three columns"><label class="inline">Try it:</label></div>
+                                <div class="five columns"><input type="text" data-input-el><p></p></div>
+                                <div class="four columns end"><button class="small radius button" data-validate-el>Validate</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="seven columns">
+                    <div class="row">
+                        <p><strong>Goal:</strong> reject input that contains any of the specified characters (<em>a, b, c, 1, 2, 3</em>).</p>
+                        <pre class="brush: csharp; gutter: false; toolbar: false;">
+                            var result = PassphraseRegex.That.ExcludesCharacters("abc123")
+                                                             .ToPattern();
+
+                            var pattern = result.Pattern;
+                        </pre>
+                        <p><strong>Pattern:</strong> <code>^(?!.*[abc123])(?!^\s|.*\s$).+$</code></p>
+                    </div>
+                </div>
+                <div class="five columns">
+                    <div class="panel">
+                        <div class="row">
+                          <div class="twelve columns">
+                            <ul>
+                              <li><strong>Valid:</strong> <em>x</em>, <em>z6</em>, <em>9</em></li>
+                              <li><strong>Invalid:</strong> <em>a</em>, <em>f3</em>, <em>2</em></li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="row" data-example-container data-pattern="^(?!.*[abc123])(?!^\s|.*\s$).+$">
+                            <form>
+                                <div class="three columns"><label class="inline">Try it:</label></div>
+                                <div class="five columns"><input type="text" data-input-el><p></p></div>
+                                <div class="four columns end"><button class="small radius button" data-validate-el>Validate</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="seven columns">
+                    <div class="row">
+                        <p><strong>Goal:</strong> accept input of length 2-6 that contains any of the characters in the range <code>a-z</code>.</p>
+                        <pre class="brush: csharp; gutter: false; toolbar: false;">
+                            var result = PassphraseRegex.With.MinLength(2)
+                                                             .MaxLength(6)
+                                                             .IncludesRange('a', 'z')
+                                                             .ToPattern();
+
+                            var pattern = result.Pattern;
+                        </pre>
+                        <p><strong>Pattern:</strong> <code>^(?=.*[a-z])(?!^\s|.*\s$).{2,6}$</code></p>
+                    </div>
+                </div>
+                <div class="five columns">
+                    <div class="panel">
+                        <div class="row">
+                          <div class="twelve columns">
+                            <ul>
+                              <li><strong>Valid:</strong> <em>ab</em>, <em>abc123</em>, <em>xyz</em></li>
+                              <li><strong>Invalid:</strong> <em>a</em> (too short), <em>AB</em> (case sensitive), <em>12</em>, <em>!@#</em>, <em>abcdefg</em> (too long)</li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="row" data-example-container data-pattern="^(?=.*[a-z])(?!^\s|.*\s$).{2,6}$">
+                            <form>
+                                <div class="three columns"><label class="inline">Try it:</label></div>
+                                <div class="five columns"><input type="text" data-input-el><p></p></div>
+                                <div class="four columns end"><button class="small radius button" data-validate-el>Validate</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="seven columns">
+                    <div class="row">
+                        <p><strong>Goal:</strong> accept input that contains at least 2 occurrences of characters in the <code>0-9</code> range and excludes the characters <code>!</code>, <code>@</code>, <code>#</code>, and characters in the <code>a-z</code> range. The minimum length is set to 3 based on the number of rules specified, which are the Include/Exclude methods (<code>WithMinimumOccurrenceOf</code> isn't counted as a rule since it's a constraint applied to the <code>IncludesRange</code> rule).</p>
+                        <pre class="brush: csharp; gutter: false; toolbar: false;">
+                            var result = PassphraseRegex.Which.ExcludesRange('a', 'z')
+                                                              .ExcludesCharacters("!@#")
+                                                              .IncludesRange('0', '9')
+                                                              .WithMinimumOccurrenceOf(2);
+
+                            var pattern = result.Pattern;
+                        </pre>
+                        <p><strong>Pattern:</strong> <code>^(?!.*[a-z])(?!.*[!@#])(?=.*[0-9].*[0-9])(?!^\s|.*\s$).{3,}$</code></p>
+                    </div>
+                </div>
+                <div class="five columns">
+                    <div class="panel">
+                        <div class="row">
+                          <div class="twelve columns">
+                            <ul>
+                              <li><strong>Valid:</strong> <em>123</em>, <em>8 % $9-4</em>, <em>A4 B5</em> (case sensitive)</li>
+                              <li><strong>Invalid:</strong> <em>0</em> (too short), <em>ABC0</em> (minimum digit occurrence not met), <em>a1b2</em>, <em>123#</em></li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="row" data-example-container data-pattern="^(?!.*[a-z])(?!.*[!@#])(?=.*[0-9].*[0-9])(?!^\s|.*\s$).{3,}$">
+                            <form>
+                                <div class="three columns"><label class="inline">Try it:</label></div>
+                                <div class="five columns"><input type="text" data-input-el><p></p></div>
+                                <div class="four columns end"><button class="small radius button" data-validate-el>Validate</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="seven columns">
+                    <div class="row">
+                        <p><strong>Goal:</strong> accept input that contains characters in the <code>a-z</code> and <code>0-9</code> ranges, with a maximum length of 8 characters, and a maximum of 3 consecutive identical characters. The minimum length is set to 2 based on the number of rules specified, which are the two Include methods (the <code>Max*</code> methods below aren't counted as rules).</p>
+                        <pre class="brush: csharp; gutter: false; toolbar: false;">
+                            var result = PassphraseRegex.With.MaxLength(8)
+                                                             .IncludesRange('a', 'z')
+                                                             .IncludesRange('0', '9')
+                                                             .MaxConsecutiveIdenticalCharacterOf(3);
+
+                            var pattern = result.Pattern;
+                        </pre>
+                        <p><strong>Pattern:</strong> <code>^(?=.*[a-z])(?=.*[0-9])(?!.*?(.)\1{3})(?!^\s|.*\s$).{2,8}$</code></p>
+                    </div>
+                </div>
+                <div class="five columns">
+                    <div class="panel">
+                        <div class="row">
+                          <div class="twelve columns">
+                            <ul>
+                              <li><strong>Valid:</strong> <em>a1</em>, <em>abc123</em>, <em>aaa1a</em> (4 'a' characters total, but not more than 3 of them are consecutive)</li>
+                              <li><strong>Invalid:</strong> <em>abcd12345</em> (too long), <em>aaaa1</em> (exceeds max of 3 consecutive identical character constraint), <em>abc</em> (doesn't include any <code>0-9</code> characters)</li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="row" data-example-container data-pattern="^(?=.*[a-z])(?=.*[0-9])(?!.*?(.)\1{3})(?!^\s|.*\s$).{2,8}$">
+                            <form>
+                                <div class="three columns"><label class="inline">Try it:</label></div>
+                                <div class="five columns"><input type="text" data-input-el><p></p></div>
+                                <div class="four columns end"><button class="small radius button" data-validate-el>Validate</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+        </div>
+    </div>
+
+    <script src="/scripts/foundation/foundation-min.js"></script>
+    <script src="/scripts/foundation/app.js"></script>
+    <script type="text/javascript">
+        SyntaxHighlighter.all()
+        $("[data-validate-el]").click(function(event) {
+            event.preventDefault();
+            var el = $(event.target);
+            var exampleRow = el.closest("[data-example-container]");
+            var inputEl = exampleRow.find("input");
+            var re = new RegExp(exampleRow.data("pattern"));
+            inputEl.removeClass("error valid")
+                   .addClass(re.test(inputEl.val()) ? "valid" : "error");
+        });
+        $("[data-input-el]").keyup(function(event) {
+            var inputEl = $(event.target);
+            if (event.which !== 13) {
+                inputEl.removeClass("error valid");
+            }
+            inputEl.next().text("Characters: " + inputEl.val().length);
+        });
+    </script>
+</body>
+</html>
