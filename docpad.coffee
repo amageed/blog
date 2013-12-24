@@ -51,7 +51,13 @@ docpadConfig = {
 				"/scripts/script.js"
 			]
 
-
+			# Docpad Services
+			services:
+				buttons: ['HackerNewsSubmit', 'RedditSubmit', 'GooglePlusOne', 'TwitterTweet', 'TwitterFollow']
+				twitterTweetButton: 'amageed'
+				twitterFollowButton: 'amageed'
+				disqus: 'softwareninjaneer'
+				googleAnalytics: 'UA-25934924-1'
 
 		# -----------------------------
 		# Helper Functions
@@ -76,7 +82,6 @@ docpadConfig = {
 		getPreparedKeywords: ->
 			# Merge the document keywords with the site keywords
 			@site.keywords.concat(@document.keywords or []).join(', ')
-
 
 	# =================================
 	# Collections
@@ -104,8 +109,8 @@ docpadConfig = {
 				}
 			]
 		ghpages:
-	        deployRemote: 'target'
-	        deployBranch: 'master'
+			deployRemote: 'target'
+			deployBranch: 'master'
 
 	# =================================
 	# DocPad Events
@@ -117,10 +122,10 @@ docpadConfig = {
 		# Render Document
 		# https://github.com/bevry/docpad/issues/402
 		renderDocument: (opts) ->
-            return if 'development' in @docpad.getEnvironments()
-            if opts.extension is 'html'
-                siteUrl = @docpad.getConfig().templateData.site.url.replace(/\/+$/, '')
-                opts.content = opts.content.replace(/(['"])\/([^\/])/g, "$1#{siteUrl}/$2")
+			return if 'development' in @docpad.getEnvironments()
+			if opts.extension is 'html'
+				siteUrl = @docpad.getConfig().templateData.site.url.replace(/\/+$/, '')
+				opts.content = opts.content.replace(/(['"])\/([^\/])/g, "$1#{siteUrl}/$2")
 
 		# Server Extend
 		# Used to add our own custom routes to the server before the docpad routes are added

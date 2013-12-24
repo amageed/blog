@@ -8,6 +8,10 @@ layout: default
 	<div class="post-content"><%- @content %></div>
 </article>
 
+<%- @getSocialButtons() %>
+
+<%- @getDisqus() %>
+
 <footer>
 	<% if @document.relatedDocuments and @document.relatedDocuments.length: %>
 	<section id="related">
