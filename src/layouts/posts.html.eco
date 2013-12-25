@@ -1,0 +1,28 @@
+---
+layout: default
+---
+
+<article id="post" class="post">
+	<h1><%= @document.title %></h1>
+	<div class="post-date"><%= @document.date.toLocaleDateString() %></div>
+	<div class="post-content"><%- @content %></div>
+</article>
+
+<%- @getSocialButtons() %>
+
+<%- @getDisqus() %>
+
+<footer>
+	<% if @document.relatedDocuments and @document.relatedDocuments.length: %>
+	<section id="related">
+		<h3>Other Posts</h3>
+		<nav class="linklist">
+			<% for document in @document.relatedDocuments.sort((x,y) -> y.date - x.date): %>
+				<li><span><%= document.date.toDateString() %></span>
+				&raquo;
+				<a href="<%= document.url %>"><%= document.title %></a></li>
+			<% end %>
+		</nav>
+	</section>
+	<% end %>
+</footer>

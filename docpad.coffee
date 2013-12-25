@@ -12,7 +12,7 @@ docpadConfig = {
 		# Specify some site properties
 		site:
 			# The production url of our website
-			url: "http://softwareninjaneer.com/"
+			url: "http://softwareninjaneer.com"
 
 			# Here are some old site urls that you would like to redirect from
 			oldUrls: [
@@ -92,7 +92,8 @@ docpadConfig = {
 			database.findAllLive({pageOrder: $exists: true}, [pageOrder:1,title:1])
 
 		posts: (database) ->
-			database.findAllLive({tags:$has:'post'}, [date:-1])
+			database.findAllLive({relativeOutDirPath:'blog'}, [date:-1])
+			# database.findAllLive({tags:$has:'post'}, [date:-1])
 
 
 	# =================================
