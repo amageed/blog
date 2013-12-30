@@ -46,7 +46,7 @@ WHERE ProductId IN (1,
 This is the order most people take:
 
   1. Paste numbers between the parentheses
-  2. Position cursor at the start (or end) of the line with the arrow keys (bad) or Home/End key (better)
+  2. Position cursor at the start (or end) of the line with the arrow keys (bad) or <kbd>Home</kbd> / <kbd>End</kbd> key (better)
   3. Insert comma
   4. Move to the next line
   5. Repeat N - 1 times
@@ -60,7 +60,7 @@ The two techniques I'll cover in this post are:
 
 ### Column mode selection
 
-The typical selection mode is known as _continuous stream selection_, which is the default selection via the mouse or is performed by using the Shift **+ arrow** keys. The other mode is **column mode**, or **box mode**. It lets you select text in columns with a rectangular portion for vertical editing. Once the columns are selected you have the option of inserting, deleting, copying, or pasting text. It's also possible to overwrite text (i.e., overstrike) by hitting the Insert key and typing new text.
+The typical selection mode is known as _continuous stream selection_, which is the default selection via the mouse or is performed by using the <kbd>Shift</kbd> **+ arrow** keys. The other mode is **column mode**, or **box mode**. It lets you select text in columns with a rectangular portion for vertical editing. Once the columns are selected you have the option of inserting, deleting, copying, or pasting text. It's also possible to overwrite text (i.e., overstrike) by hitting the Insert key and typing new text.
 
 <p class="text-center">
     ![Stream and Column selection modes](/images/StreamAndColumnSelectionModes.png)
@@ -71,13 +71,13 @@ Some IDEs and text-editors support column mode, such as Visual Studio 2010 and N
 #### Keyboard approach:
 
   1. Place the cursor at the beginning of the line.
-  2. Press and hold the Shift + Alt keys, then move the cursor with any **arrow key**. You will see the cursor flashing on each line you've selected.
-  3. Type the desired character or text to prefix or delimit the lines with. For this example it's a comma: ,.
+  2. Press and hold the <kbd>Shift</kbd> + <kbd>Alt</kbd> keys, then move the cursor with any **arrow key**. You will see the cursor flashing on each line you've selected.
+  3. Type the desired character or text to prefix or delimit the lines with. For this example it's a comma: `,`.
 
 #### Mouse approach:
 
   1. Place the cursor at the beginning of the line.
-  2. Press and hold the Alt key, then click the left mouse button and move the cursor over the desired text.
+  2. Press and hold the <kbd>Alt</kbd> key, then click the left mouse button and move the cursor over the desired text.
   3. Modify text as desired.
 
 To clarify, for the purposes of this example the cursor is placed at the beginning of the line. However, column mode can be used anywhere in the text, even in the middle of a word.
