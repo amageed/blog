@@ -9,7 +9,7 @@ Do you know those helpful little `X` icons that appear in form fields as you're 
 
 If you're eager to grab the code or check out the demo, here you go:
 
-  - Code: [GitHub repo](https://www.github.com/amageed/angular-resetfield)
+  - Code: [GitHub repo](https://github.com/amageed/angular-resetfield)
   - Demo: [JSBin demo](http://jsbin.com/OgogiwEV/22/edit?html,css,js,output)
 
 Some browsers include this feature out of the box. IE10+ does for text related input elements, and WebKit browsers might add icons for input types of search. You could write a directive that detects the native support and keeps it (by returning and doing nothing), as in the case of IE10+, or opt to apply your directive to all browsers and disable any native functionality. I opted for the latter since it keeps the look and feel consistent across browsers. Either way, you would have to write code to detect the feature, or CSS to disable it.
@@ -250,6 +250,6 @@ I spoke with Dave Smith at [ng-conf 2014](http://ng-conf.org/). He gave a nice "
 
 The feedback was much appreciated and I might try my hand at that next. I suppose that approach might allow me to remove the input type checking as well, since the usage of the component leaves no room for ambiguity, or I can still apply the type via attributes.
 
-Be sure to check out my [GitHub repo](https://www.github.com/amageed/angular-resetfield) where I have a demo setup of the directive along with a suite of Karma/Jasmine tests.
+Be sure to check out my [GitHub repo](https://github.com/amageed/angular-resetfield) where I have a demo setup of the directive along with a suite of Karma/Jasmine tests.
 
 If you've got any code improvement suggestions, especially around the `reset` functionality, your feedback is welcome!
