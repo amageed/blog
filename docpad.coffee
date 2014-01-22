@@ -39,7 +39,7 @@ docpadConfig = {
 
 			# Styles
 			styles: [
-				"/styles/twitter-bootstrap.css"
+				"/vendor/twitter-bootstrap/dist/css/bootstrap.min.css"
 				"/styles/style.css"
 			]
 
