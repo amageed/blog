@@ -45,10 +45,11 @@ docpadConfig = {
 
 			# Scripts
 			scripts: [
-				"//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"
+				"/scripts/jquery.js"
+				#"//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"
 				"//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"
 				"/vendor/twitter-bootstrap/dist/js/bootstrap.min.js"
-				"/scripts/script.js"
+				# "/scripts/scripts.js"
 			]
 
 			# Docpad Services
@@ -99,6 +100,7 @@ docpadConfig = {
 	# =================================
 	# Plugins
 
+	# Note: highlightjs had to be directly updated to change config.className to 'hljs'
 	plugins:
 		downloader:
 			downloads: [
