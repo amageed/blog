@@ -139,7 +139,8 @@ var pattern = result.Pattern;
     var result = PassphraseRegex.Which.ExcludesRange('a', 'z')
                                       .ExcludesCharacters("!@#")
                                       .IncludesRange(0, 9)
-                                      .WithMinimumOccurrenceOf(2);
+                                      .WithMinimumOccurrenceOf(2)
+                                      .ToRegex();
 
     var pattern = result.Pattern;
 ```
@@ -164,7 +165,8 @@ var pattern = result.Pattern;
 var result = PassphraseRegex.With.MaxLength(8)
                                  .IncludesRange('a', 'z')
                                  .IncludesRange('0', '9')
-                                 .MaxConsecutiveIdenticalCharacterOf(3);
+                                 .MaxConsecutiveIdenticalCharacterOf(3)
+                                 .ToRegex();
 
 var pattern = result.Pattern;
 ```
@@ -181,6 +183,30 @@ var pattern = result.Pattern;
     </form>
 </div>
 
+<hr />
+
+**Goal:** accept input that doesn't contain "foo" anywhere in the text (regardless of case).</p>
+
+```cs
+var result = PassphraseRegex.That.ExcludesText("foo")
+                                 .Options(RegexOptions.IgnoreCase)
+                                 .ToRegex();
+
+var pattern = result.Pattern;
+```
+
+<div class="well">
+    <p>**Pattern:** `^(?!.*foo)(?!^\s|.*\s$).+$`</p>
+    <ul>
+      <li>*Valid:* **a1**, **abc123**, **fizz**</li>
+      <li>*Invalid:* **foo** (lowercase), **FOO** (uppercase), **abcFoOxyz** (mixed case)</li>
+    </ul>
+    <form class="form-group">
+        <input type="text" class="form-control" placeholder="Try it..." pattern="^(?!.*foo)(?!^\s|.*\s$).+$" pattern-flags="i">
+        <p></p>
+    </form>
+</div>
+
 <script type="text/javascript">
     setTimeout(function() {
         $('form').submit(function(event) {
@@ -188,7 +214,7 @@ var pattern = result.Pattern;
         });
         $('form > input').keyup(function() {
             var el = $(this);
-            var re = new RegExp(el.attr('pattern'));
+            var re = new RegExp(el.attr('pattern'), el.attr('pattern-flags'));
             var isValid = re.test(el.val());
             el.removeClass('error success')
               .addClass(isValid ? 'success' : 'error')
