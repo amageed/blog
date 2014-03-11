@@ -18,7 +18,7 @@ pageOrder: 2
 
 ## About
 
-***Regextra*** is an [open source C# library](https://github.com/amageed/regextra) that provides a `PassphraseRegex` class to aid in strong passphrase validation. Using a fluent API, a variety of common rules can be applied to produce a pattern that can be used to validate input. The regex produced is generic enough that it can be used on the back-end, or on the front-end via JavaScript (which this page demonstrates!).
+***Regextra*** is an [open source .NET library](https://github.com/amageed/regextra) built to address problems that are handily solved by regular expressions. One component of the library is the `PassphraseRegex` class, which aids in strong passphrase validation. Using a fluent API, a variety of common rules can be applied to produce a pattern that can be used to validate input. The regex produced is generic enough that it can be used on the back-end, or on the front-end via JavaScript (which this page demonstrates!).
 
 A common question I've seen on StackOverflow is how to write code that enforces strong passphrase or password rules. Popular responses tend to tackle the problem by using a regex with look-aheads. I've seen this so much that I decided to have fun writing a solution that allowed people to produce regex patterns that would enforce such rules.
 
